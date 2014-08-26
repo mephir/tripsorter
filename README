@@ -34,6 +34,38 @@ New types of transportation:
  * Taxi - with price
  * Extending train card for informations if its regular train or fast trains like(TGV, Eurostar, Thalys) since boarding rules are different
 
+## Example usage
+Code:
+```php
+<?php
+use TripSorter\Collection\TripCollection;
+use TripSorter\Cards\AirplaneCard;
+use TripSorter\Cards\VehicleCard;
+
+include('src/autoload.php');
+
+$collection = new TripCollection();
+
+$collection->add(new VehicleCard('Barcelona', 'Gerona Airport', 'airport bus'));
+$collection->add(new AirplaneCard('Stockholm', 'New York JFK', 'SK22', 22, '7B'));
+$collection->add(new AirplaneCard('Gerona Airport', 'Stockholm', 'SK455', '45B', '3A', 344));
+$collection->add(new VehicleCard('Madrid', 'Barcelona', 'train 78A', '45B'));
+
+$i = 1;
+foreach ($collection->getSummary() as $point) {
+    echo sprintf("%d. %s\n", $i, $point);
+    $i++;
+}
+```
+Result:
+```
+mephir@ns361912 ~/git/TripSorter $ php -f example.php
+1. Take train 78A from Madrid to Barcelona. Sit in seat 45B.
+2. Take airport bus from Barcelona to Gerona Airport. No seat assignment.
+3. From Gerona Airport, take flight SK455 to Stockholm. Gate 45B, seat 3A. Baggage drop at ticket counter 344.
+4. From Stockholm, take flight SK22 to New York JFK. Gate 22, seat 7B. Baggage will we automatically transferred from your last leg.
+5. You have arrived at your final destination.
+```
 
 ## License
 MIT license
