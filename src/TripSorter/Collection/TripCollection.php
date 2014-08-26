@@ -59,14 +59,16 @@ class TripCollection
 
         foreach ($this->getBoardingCards() as $boardingCard) {
             $added = false;
+            $toMerge = 0;
 
             foreach ($routes as $k => $route) {
                 if ($boardingCard->getDeparture() == end($route)->getArrival()) {
                     if (!$added) {
                         $routes[$k][] = $boardingCard;
+                        $toMerge = $k;
                         $added = true;
                     } else {
-                        $routes = $this->mergeRoutes($routes);
+                        $this->mergeRoutes($routes, $toMerge, $k);
                         continue;
                     }
                 }
@@ -74,9 +76,10 @@ class TripCollection
                 if ($boardingCard->getArrival() == reset($route)->getDeparture()) {
                     if (!$added) {
                         array_unshift($routes[$k], $boardingCard);
+                        $toMerge = $k;
                         $added = true;
                     } else {
-                        $routes = $this->mergeRoutes($routes);
+                        $this->mergeRoutes($routes, $toMerge, $k);
                         continue;
                     }
                 }
@@ -110,28 +113,25 @@ class TripCollection
     /**
      * Method merge routes
      *
-     * @param array $routes
+     * @param array   $routes
+     * @param integer $a      Index of first route to merge
+     * @param integer $b      Index of second route to merge
      *
      * @return array
      */
-    private function mergeRoutes(array $routes)
+    private function mergeRoutes(array &$routes, $a, $b)
     {
         if (count($routes) == 1) { //roundtrip case
             return $routes;
         }
 
-        $output = array();
-
-        $first = array_shift($routes);
-        $last = array_shift($routes);
-
-        if (end($first)->getArrival() == reset($last)->getDeparture()) {
-            $output = array_merge($first, $last);
+        if (end($routes[$a])->getArrival() == reset($routes[$b])->getDeparture()) {
+            $routes[$a] = array_merge($routes[$a], $routes[$b]);
+            unset($routes[$b]);
         } else {
-            $output = array_merge($last, $first);
+            $routes[$a] = array_merge($routes[$b], $routes[$a]);
+            unset($routes[$b]);
         }
-
-        return array($output);
     }
 
     /**

@@ -98,11 +98,11 @@ class TripCollectionTest extends \PHPUnit_Framework_TestCase
         $collection->add(new VehicleCard('C', 'D', 'train CD'));
         $collection->add(new VehicleCard('A', 'B', 'bus AB'));
         $collection->add(new VehicleCard('E', 'F', 'train EF'));
+        $collection->add(new VehicleCard('G', 'H', 'bus GH'));
         $collection->add(new VehicleCard('D', 'E', 'train DE'));
         $collection->add(new VehicleCard('B', 'C', 'bus BC'));
-        $collection->add(new VehicleCard('F', 'A', 'bus FA'));
+        $collection->add(new VehicleCard('F', 'G', 'train FG'));
 
         $this->assertTrue($collection->sort());
-
     }
 }
