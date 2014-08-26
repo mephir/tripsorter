@@ -7,7 +7,7 @@ TripSorter is library which support tickets/boarding cards sorting in to unbreak
  * PHPUnit 3.17+
 
 ## Usage
- 1. TripSorter follows the standards defined in the `PSR-0`_, `PSR-1`_ and `PSR-2`_ documents. Could be used with PSR-0 autoloader, for an example from composer.
+ 1. TripSorter follows the standards defined in the [PSR-0](http://www.php-fig.org/psr/psr-0/), [PSR-1](http://www.php-fig.org/psr/psr-1/) and [PSR-2](http://www.php-fig.org/psr/psr-2/) documents. Could be used with PSR-0 autoloader, for an example from composer.
  2. Include file src/autoload.php into your scripts for using library
  3. If your project uses SplAutoloader classes you can register TripSorter under namespace ```TripSorter``` pointing to src/TripSorter folder
 
