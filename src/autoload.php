@@ -15,5 +15,7 @@ function autoload($className)
     }
     $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
-    require $fileName;
+    if (file_exists(__DIR__ . DIRECTORY_SEPARATOR . $fileName)) {
+        require $fileName;
+    }
 }
