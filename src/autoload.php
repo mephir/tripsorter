@@ -1,6 +1,6 @@
 <?php
 /**
- * PSR-0 autoloader
+ * Register PSR-0 autoloader
  */
 
 function autoload($className)
@@ -19,3 +19,5 @@ function autoload($className)
         require $fileName;
     }
 }
+
+spl_autoload_register('autoload');
