@@ -24,8 +24,7 @@ class TripCollection
     public function __construct(array $boardingCards = array())
     {
         foreach ($boardingCards as $k => $boardingCard) {
-            if (!($boardingCard instanceof BoardingCard))
-            {
+            if (!($boardingCard instanceof BoardingCard)) {
                 throw new \UnexpectedValueException(sprintf('Boarding card %d is not instance of TripSorter\Definition\BoardingCard', $k));
             }
         }
@@ -111,30 +110,6 @@ class TripCollection
     }
 
     /**
-     * Method merge routes
-     *
-     * @param array   $routes
-     * @param integer $a      Index of first route to merge
-     * @param integer $b      Index of second route to merge
-     *
-     * @return array
-     */
-    private function mergeRoutes(array &$routes, $a, $b)
-    {
-        if (count($routes) == 1) { //roundtrip case
-            return $routes;
-        }
-
-        if (end($routes[$a])->getArrival() == reset($routes[$b])->getDeparture()) {
-            $routes[$a] = array_merge($routes[$a], $routes[$b]);
-            unset($routes[$b]);
-        } else {
-            $routes[$a] = array_merge($routes[$b], $routes[$a]);
-            unset($routes[$b]);
-        }
-    }
-
-    /**
      * Returns sorted list of boarding cards
      *
      * @return array
@@ -159,5 +134,30 @@ class TripCollection
         }
 
         return $output;
+    }
+
+    /**
+     * Method merge routes
+     *
+     * @param array   &$routes Routes array
+     * @param integer $a       Index of first route to merge
+     * @param integer $b       Index of second route to merge
+     *
+     * @return array
+     */
+    private function mergeRoutes(array &$routes, $a, $b)
+    {
+        //roundtrip case
+        if (count($routes) == 1) {
+            return $routes;
+        }
+
+        if (end($routes[$a])->getArrival() == reset($routes[$b])->getDeparture()) {
+            $routes[$a] = array_merge($routes[$a], $routes[$b]);
+            unset($routes[$b]);
+        } else {
+            $routes[$a] = array_merge($routes[$b], $routes[$a]);
+            unset($routes[$b]);
+        }
     }
 }

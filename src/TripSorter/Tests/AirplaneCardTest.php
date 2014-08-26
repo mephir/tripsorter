@@ -8,12 +8,12 @@ use TripSorter\Definition\BoardingCard;
 /**
  * Test suite for airplane card
  *
- * @author Pawel Wilk
+ * @author Pawel Wilk <pwilkmielno@gmail.com>
  *
  * @group cards
  */
-class AirplaneCardTest extends \PHPUnit_Framework_TestCase {
-
+class AirplaneCardTest extends \PHPUnit_Framework_TestCase
+{
     public function testTransferBaggageForCardDifferentType()
     {
         $mockedCard = $this->getMockBuilder('TripSorter\Definition\BoardingCard')

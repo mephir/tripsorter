@@ -21,11 +21,11 @@ class AirplaneCard extends BoardingCard
     /**
      * Constructor
      *
-     * @param string  $departure
-     * @param string  $arrival
+     * @param string  $departure       Name of departure palce
+     * @param string  $arrival         Name of target place
      * @param string  $code            Flight code
-     * @param string  $departureGate
-     * @param string  $seat
+     * @param string  $departureGate   Number/code of departure gate
+     * @param string  $seat            Number of seat in plane
      * @param mixed   $baggageDrop     Null when not assigned, string when assigned
      * @param boolean $transferBaggage True if luggage should be transferd to another plane if possible
      */
@@ -178,8 +178,11 @@ class AirplaneCard extends BoardingCard
     }
 
     /**
-     * (non-PHPdoc)
-     * @see \TripSorter\Definition\BoardingCard::getDescription()
+     * Text representation of Airplane travel
+     *
+     * @param BoardingCard $lastCard
+     *
+     * @return string
      */
     public function getDescription(BoardingCard $lastCard = null)
     {

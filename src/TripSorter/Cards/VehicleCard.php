@@ -18,9 +18,9 @@ class VehicleCard extends BoardingCard
     /**
      * Constructor
      *
-     * @param string $departure
-     * @param string $arrival
-     * @param string $name
+     * @param string $departure Name of departure place
+     * @param string $arrival   Name of arrival place
+     * @param string $name      Name of vehicle transportation
      * @param mixed  $seat      Null if seat is not assigned, string if assigned
      */
     public function __construct($departure, $arrival, $name, $seat = null)
@@ -80,10 +80,15 @@ class VehicleCard extends BoardingCard
         return $this;
     }
 
-    /* (non-PHPdoc)
-     * @see \TripSorter\Definition\BoardingCard::getDescription()
+    /**
+     * Text representation of vehicle travel
+     *
+     * @param BoardingCard $lastCard
+     *
+     * @return string
      */
-    public function getDescription(BoardingCard $lastCard = null) {
+    public function getDescription(BoardingCard $lastCard = null)
+    {
         $output = sprintf('Take %s from %s to %s.', $this->getName(), $this->getDeparture(), $this->getArrival());
         if ($this->getSeat() === null) {
             $output .= ' No seat assignment.';

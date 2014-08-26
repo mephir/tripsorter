@@ -85,6 +85,8 @@ abstract class BoardingCard
     /**
      * Returns if luggage should be transfered to another travel point if possible
      *
+     * @param BoardingCard $card Last trip point
+     *
      * @return boolean
      */
     public function isBaggageTransfered(BoardingCard $card)
