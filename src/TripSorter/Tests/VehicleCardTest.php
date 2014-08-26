@@ -15,12 +15,12 @@ class VehicleCardTest extends \PHPUnit_Framework_TestCase {
     public function testDescriptionWithoutSeat() {
         $trainCard = new VehicleCard('Paris St. Lazare', 'London St. Pancras International', 'train 1774');
 
-        $this->assertEquals('Take train 1774 from London St. Pancras International to Paris St. Lazare. No seat assignment.', $trainCard->getDescription());
+        $this->assertEquals('Take train 1774 from Paris St. Lazare to London St. Pancras International. No seat assignment.', $trainCard->getDescription());
     }
 
     public function testDescriptionWithSeat() {
         $trainCard = new VehicleCard('Paris St. Lazare', 'London St. Pancras International', 'train 1774', 59);
 
-        $this->assertEquals('Take train 1774 from London St. Pancras International to Paris St. Lazare. Sit in seat 59.', $trainCard->getDescription());
+        $this->assertEquals('Take train 1774 from Paris St. Lazare to London St. Pancras International. Sit in seat 59.', $trainCard->getDescription());
     }
 }

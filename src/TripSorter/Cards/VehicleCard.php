@@ -84,7 +84,7 @@ class VehicleCard extends BoardingCard
      * @see \TripSorter\Definition\BoardingCard::getDescription()
      */
     public function getDescription(BoardingCard $lastCard = null) {
-        $output = sprintf('Take %s from %s to %s.', $this->getName(), $this->getArrival(), $this->getDeparture());
+        $output = sprintf('Take %s from %s to %s.', $this->getName(), $this->getDeparture(), $this->getArrival());
         if ($this->getSeat() === null) {
             $output .= ' No seat assignment.';
         } else {

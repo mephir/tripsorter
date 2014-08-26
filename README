@@ -1,0 +1,43 @@
+# TripSorter
+
+TripSorter is library which support tickets/boarding cards sorting in to unbreakable chain. It supports A-B travels as well as roundtrips. In case of roundtrips proper starting point cannot be guaranted.
+
+## Requirement
+ * PHP 5.3+
+ * PHPUnit 3.17+
+
+## Usage
+ 1. TripSorter follows the standards defined in the `PSR-0`_, `PSR-1`_ and `PSR-2`_ documents. Could be used with PSR-0 autoloader, for an example from composer.
+ 2. Include file src/autoload.php into your scripts for using library
+ 3. If your project uses SplAutoloader classes you can register TripSorter under namespace ```TripSorter``` pointing to src/TripSorter folder
+
+## Testing
+TripSorter is using phpunit for testing. phpunit configuration file is provided and included in to repository.
+For running tests you should go to main directory and run phpunit command without additional parameters.
+
+## Possible changes
+ * Support trips when user stops multiple time in the same point
+ * Refactoring of ```VehicleCard class```. Create abstract class from it, which does not support train/bus number by name field. It can have getName() abstract method, by creating classes as TrainCard, BusCard(which will inherit from VehicleCard) can support directy train/bus number.
+ * Naming convention: rename BoardingCard to Ticket and make similar naming change in child classes.
+ * Adding informations to AirplaneCard about allowed baggage
+ * Adding support for setting first trip point(guarantee proper chain for roundtrips)
+ * Add composer.json
+
+## Create new types of transportation
+ 1. Create new class which extends ```TripSorter\Definition\BoardingCard```.
+ 2. Create ```getDescription()``` method which returns description of ticket.
+ 3. Add your own code, additional information etc.
+
+New types of transportation:
+ * Bareboat charter - with additional information about boat name and if point of trip is final one by this type of transportation(similar like luggage transfer)
+ * Cruise ship - additional data like cabin number, desk number
+ * Taxi - with price
+ * Extending train card for informations if its regular train or fast trains like(TGV, Eurostar, Thalys) since boarding rules are different
+
+
+## License
+MIT license
+
+.. _`PSR-0`: http://www.php-fig.org/psr/psr-0/
+.. _`PSR-1`: http://www.php-fig.org/psr/psr-1/
+.. _`PSR-2`: http://www.php-fig.org/psr/psr-2/
