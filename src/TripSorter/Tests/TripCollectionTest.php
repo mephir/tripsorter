@@ -25,7 +25,7 @@ class TripCollectionTest extends \PHPUnit_Framework_TestCase
         $collection->add(new VehicleCard('E', 'F', 'train EF'));
 
         $this->assertFalse($collection->sort());
-
+        $this->assertFalse($collection->getSummary());
     }
 
     public function testCollectionSortTripValid()
@@ -74,6 +74,20 @@ class TripCollectionTest extends \PHPUnit_Framework_TestCase
         $collection->add(new AirplaneCard('Gerona Airport', 'Stockholm', 'SK455', '45B', '3A', 344));
         $collection->add(new VehicleCard('Madrid', 'Barcelona', 'train 78A', '45B'));
 
-        var_dump($collection->getSummary());
+        $summary = $collection->getSummary();
+
+        $this->assertCount(5, $summary);
+
+        $results = array(
+            'Take train 78A from Madrid to Barcelona. Sit in seat 45B.',
+            'Take airport bus from Barcelona to Gerona Airport. No seat assignment.',
+            'From Gerona Airport, take flight SK455 to Stockholm. Gate 45B, seat 3A. Baggage drop at ticket counter 344.',
+            'From Stockholm, take flight SK22 to New York JFK. Gate 22, seat 7B. Baggage will we automatically transferred from your last leg.',
+            'You have arrived at your final destination.',
+        );
+
+        foreach ($results as $point) {
+            $this->assertEquals($point, array_shift($summary));
+        }
     }
 }

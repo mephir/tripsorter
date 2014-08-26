@@ -59,9 +59,9 @@ class TripCollection
 
         foreach ($this->getBoardingCards() as $boardingCard) {
             $added = false;
-            var_dump($routes);
+
             foreach ($routes as $k => $route) {
-                if ($boardingCard->getDeparture() == end($routes[$k])->getArrival()) {
+                if ($boardingCard->getDeparture() == end($route)->getArrival()) {
                     if (!$added) {
                         $routes[$k][] = $boardingCard;
                         $added = true;
@@ -80,6 +80,7 @@ class TripCollection
                         continue;
                     }
                 }
+
             }
 
             if (!$added) {
@@ -115,10 +116,19 @@ class TripCollection
      */
     private function mergeRoutes(array $routes)
     {
+        if (count($routes) == 1) { //roundtrip case
+            return $routes;
+        }
+
         $output = array();
 
-        while ($route = array_shift($routes)) {
-            $output = array_merge($output, $route);
+        $first = array_shift($routes);
+        $last = array_shift($routes);
+
+        if (end($first)->getArrival() == reset($last)->getDeparture()) {
+            $output = array_merge($first, $last);
+        } else {
+            $output = array_merge($last, $first);
         }
 
         return array($output);
@@ -131,18 +141,23 @@ class TripCollection
      */
     public function getSummary()
     {
-        $this->sort();
+        if (!$this->sort()) {
+            return false;
+        }
+
         $boardingCards = $this->getBoardingCards();
 
         $output = array();
         $lastCard = null;
         foreach ($boardingCards as $card) {
-
-            $card instanceof BoardingCard;
-
             $output[] = $card->getDescription($lastCard);
             $lastCard =$card;
         }
+
+        if (count($output) > 0) {
+            $output[] = 'You have arrived at your final destination.';
+        }
+
         return $output;
     }
 }
