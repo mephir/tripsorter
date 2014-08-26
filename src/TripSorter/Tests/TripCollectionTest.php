@@ -90,4 +90,19 @@ class TripCollectionTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($point, array_shift($summary));
         }
     }
+
+    public function testVeryLong()
+    {
+        $collection = new TripCollection();
+
+        $collection->add(new VehicleCard('C', 'D', 'train CD'));
+        $collection->add(new VehicleCard('A', 'B', 'bus AB'));
+        $collection->add(new VehicleCard('E', 'F', 'train EF'));
+        $collection->add(new VehicleCard('D', 'E', 'train DE'));
+        $collection->add(new VehicleCard('B', 'C', 'bus BC'));
+        $collection->add(new VehicleCard('F', 'A', 'bus FA'));
+
+        $this->assertTrue($collection->sort());
+
+    }
 }
